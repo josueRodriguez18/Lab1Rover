@@ -13,6 +13,7 @@ module ProximitySensor(output reg trigger, input echo, input clk, output reg isC
     stepTimer = frequencyStepperValue;
         initial begin
         trigger = 0;
+        stepTimer = frequencyStepperValue;
     end
     always @(posedge clk) //every clock pulse
         begin
