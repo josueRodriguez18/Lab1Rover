@@ -43,8 +43,8 @@ module ProximitySensor(output reg trigger, input echo, input clk, output reg isC
     //speed of sound (m/s) * time (s) = distance (m)   time must be halved because pulse goes to and back from location
   always@(negedge echo)
     begin
-    distance = (distanceTimer*340)>>1;
-    if(distance <= 306) //within 6 inches
+    distance = (distanceTimer*340)>>1; //roll right divides by two
+    if(distance <= 150) //within 6 inches
         begin
           isCrash = 1; //you're gonna crash
         end
