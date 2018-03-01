@@ -31,7 +31,7 @@ module ProximitySensor(output reg trigger, input echo, input clk, output reg isC
         begin
             if(stepTimer <= frequencyStepperValue)
                 begin
-                stepTimer = timer - 1;
+                stepTimer = stepTimer - 1;
                 end
             if(stepTimer == 0)
                 begin
