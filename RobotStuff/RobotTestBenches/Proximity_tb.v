@@ -31,6 +31,7 @@ module Proximity_tb();
                             #100
                             Echo = 1; //true
                             #100
+                            Echo = 0;
                         end
 
                 end
