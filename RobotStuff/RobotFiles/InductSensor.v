@@ -1,10 +1,25 @@
-module InductSensor(sensor, out);
-    input [0:width] sensor; //output of hardware sensor
-    output [0:width] out; //motor control
-    parameter range, width;
-    if(sensor == range*1.05 or sensor == range*.95)
+module InductSensor([2:0]sensor, [2:0]out);
+  reg junction = 0;
+  always
+    begin
+      if(sensor == 3'b001)
         begin
-          out = 1b'1; //if signal is within 5%
+          assign [2:1]out = [2:1]sensor;
+          assign [0]out = 1;
         end
+      if(sensor == 3'b100)
+        begin
+          assign [1:0]out = [1:0]sensor
+          assign [2]out = 1;
+        end
+      if(sensor == 3'b000)
+        begin
+          assign out = 3'b110;
+        end
+      else
+        begin
+          assign out = sensor;
+        end
+    end
 
 endmodule
