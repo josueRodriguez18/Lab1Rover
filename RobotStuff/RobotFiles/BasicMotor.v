@@ -40,7 +40,7 @@ reg proxim_last;
                     end 
                 if(induct == 3'b000) //at junction
                     begin
-                      motorEn <= 2'b00;
+                      motorEn <= 2'b11;
                       motorIn = redLast; //decision is executed
                       last = motorIn; //saves last state
                     end
