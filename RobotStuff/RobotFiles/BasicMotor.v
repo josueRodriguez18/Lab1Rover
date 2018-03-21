@@ -8,7 +8,6 @@ reg [3:0] redLast = 4'b0101;
 reg proxim_last;
     always @(*)
         begin
-             
              if((induct == 3'b001 || induct == 3'b011) && !proxim) //left sensor on tape
                    begin
                        motorIn = 4'b0101;
@@ -40,10 +39,11 @@ reg proxim_last;
                     end 
                 if(induct == 3'b000) //at junction
                     begin
-                      motorEn <= 2'b11;
+                      motorEn <= 2'b00;
                       motorIn = redLast; //decision is executed
                       last = motorIn; //saves last state
                     end
+                end
                 always@(posedge red) //only execute when red is driven onto
                     begin
                         redLast = ~redLast; //toggle direction decision
@@ -58,8 +58,7 @@ reg proxim_last;
                     end
                 always@(negedge red) //execute when red is driven off of
                     begin
-                        proxim_last = (proxim_last^1'b0); //reset last proxim for next junction ^ = xor
-                    end 
-        end      
+                        proxim_last = proxim_last~^1'b1; //reset last proxim for next junction ~^ = xnor
+                    end       
     
 endmodule
