@@ -10,19 +10,19 @@ reg proxim_last;
         begin
              if((induct == 3'b001 || induct == 3'b011) && !proxim) //left sensor on tape
                    begin
-                       motorIn = 4'b0101;
+                       motorIn = 4'b1010;
                        motorEn <= 2'b11;
                        last = motorIn; //saves last state
                    end
                 if((induct == 3'b100 || induct == 3'b110)&& !proxim) //right sensor on tape
                    begin
-                       motorIn = 4'b1010;
+                       motorIn = 4'b0101;
                        motorEn <= 2'b11;
                        last = motorIn; //saves last state
                    end
                 if(induct == 3'b101 && !proxim) //middle sensor only on tape
                        begin    
-                        motorIn = 4'b1001;
+                        motorIn = 4'b0110;
                         motorEn <= 2'b11;
                         last = motorIn; //saves last state
                        end
@@ -39,7 +39,7 @@ reg proxim_last;
                     end 
                 if(induct == 3'b000) //at junction
                     begin
-                      motorEn <= 2'b00;
+                      motorEn <= 2'b11;
                       motorIn = redLast; //decision is executed
                       last = motorIn; //saves last state
                     end
