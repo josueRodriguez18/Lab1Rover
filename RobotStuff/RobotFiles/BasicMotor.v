@@ -6,15 +6,15 @@ module Motor( input [2:0]induct, input proxim, output reg [3:0]motorIn, output r
 reg [3:0] last;
 reg [3:0] redLast = 4'b0101;
 reg proxim_last;
-    always @(induct)
+    always @(induct) //any time induct changes
         begin
-             case (proxim)
-              1'b0:
+             case (proxim) //proxim case so it's checked instantly
+              1'b0: //low
                 case(induct)
-                    3'b001:
+                    3'b001: //all the different induct patterns
                         motorIn <= 4'b1010;
                         motorEn <= 2'b11;
-                        last = motorIn; 
+                        last = motorIn; //save last
                     3'b011:
                         motorIn <= 4'b1010;
                         motorEn <= 2'b11;
@@ -32,15 +32,15 @@ reg proxim_last;
                         motorEn <= 2'b11;
                         last = motorIn;
                     3'b000:
-                        motorIn <= redlast;
+                        motorIn <= redlast; //junction execution
                         motorEn <= 2'b11; 
                         last = motorIn;
-                    default: motorIn <= last;
+                    default: motorIn <= last; //finish turns
                              motorEn <= 2'b11;
                 endcase
-                default: motorIn <= redlast;
+                default: motorIn <= redlast; //proxim high so turn
                          motorEn <= 2'b11;
-                         proxim_last =~ proxim_last;
+                         proxim_last =~ proxim_last; //toggle proxim_last
             endcase
         end
                 always@(posedge red) //only execute when red is driven onto
