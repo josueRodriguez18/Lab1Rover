@@ -14,7 +14,7 @@ module ProximitySensor(output reg trigger, input echo, input clk, output reg isC
                             isCrash <= 1;
                             distance <=0;
                         end
-                     else
+                     else if(distance > 294117)
                         begin
                             isCrash <= 0;
                             distance <= 0;
