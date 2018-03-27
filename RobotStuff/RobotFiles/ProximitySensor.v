@@ -11,7 +11,7 @@ module ProximitySensor(output wire trigger, input echo, input clk, output reg is
             if(timer == 0) //if the timer is 0 invert trigger (turn on at start and off at end)
                 begin                   
                   trig <= ~trig; //invert
-                  timer = tenMicro; //set timer to tenMicro seconds for another count down
+                  timer <= tenMicro; //set timer to tenMicro seconds for another count down
                 end
             if(timer > 0 && echo == 0) //only if echo is not currently high begin counting down
                 begin
@@ -21,17 +21,20 @@ module ProximitySensor(output wire trigger, input echo, input clk, output reg is
             if(echo)
                 begin
                     distance <= distance + 1;
+                    timer <= tenMicro;
                 end
-            if(distance <= 294117 && echo == 0 && timer == 0) //within 1.5 ft
+        end
+    always @(negedge echo)
+        begin
+            if(distance <= 294117)
                 begin
-                    isCrash <= 1; //you're gonna crash
+                    isCrash <= 1;
                 end
             else
                 begin
-                    isCrash <= 0; //all is good
+                    isCrash <= 0;
                 end
         end
-
     //speed of sound (m/s) * time (s) = distance (m)   time must be halved because pulse goes to and back from location
 
 endmodule

@@ -12,35 +12,53 @@ reg proxim_last;
               1'b0: //low
                 case(induct)
                     3'b001: //all the different induct patterns
-                        motorIn <= 4'b1010;
-                        motorEn <= 2'b11;
-                        last = motorIn; //save last
+                        begin
+                            motorIn <= 4'b1010;
+                            motorEn <= 2'b11;
+                            last = motorIn; //save last
+                        end
                     3'b011:
-                        motorIn <= 4'b1010;
-                        motorEn <= 2'b11;
-                        last = motorIn; 
+                         begin
+                            motorIn <= 4'b1010;
+                            motorEn <= 2'b11;
+                            last = motorIn;
+                         end 
                     3'b100:
-                        motorIn <= 4'b0101;
-                        motorEn <= 2'b11;
-                        last = motorIn;
+                        begin
+                            motorIn <= 4'b0101;
+                            motorEn <= 2'b11;
+                            last = motorIn;
+                        end
                     3'b110:
-                        motorIn <= 4'b0101;
-                        motorEn <= 2'b11;
-                        last = motorIn;
+                        begin
+                            motorIn <= 4'b0101;
+                            motorEn <= 2'b11;
+                            last = motorIn;
+                        end
                     3'b101:
-                        motorIn <= 4'b0110;
-                        motorEn <= 2'b11;
-                        last = motorIn;
+                        begin
+                            motorIn <= 4'b0110;
+                            motorEn <= 2'b11;
+                            last = motorIn;
+                        end
                     3'b000:
-                        motorIn <= redlast; //junction execution
-                        motorEn <= 2'b11; 
-                        last = motorIn;
-                    default: motorIn <= last; //finish turns
-                             motorEn <= 2'b11;
+                        begin
+                            motorIn <= redLast; //junction execution
+                            motorEn <= 2'b11; 
+                            last = motorIn;
+                        end
+                    default: 
+                    begin
+                        motorIn <= last; //finish turns
+                        motorEn <= 2'b11;
+                    end
                 endcase
-                default: motorIn <= redlast; //proxim high so turn
+                default: 
+                    begin
+                         motorIn <= redLast; //proxim high so turn
                          motorEn <= 2'b11;
                          proxim_last =~ proxim_last; //toggle proxim_last
+                    end         
             endcase
         end
                 always@(posedge red) //only execute when red is driven onto
