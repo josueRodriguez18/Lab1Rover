@@ -1,4 +1,4 @@
-module Top(output [1:0]JA, input clk, input [1:0]JB, output [1:0]led);
+module Top(output [1:0]JA, input clk, input [1:0]JB, output [7:0]led);
             //uncomment for motor
             // sw[2] sw[1] sw[0] =  inductance 3 bit number set to switches for test
             // JA[3] JA[2] JA[1] JA[0] = IN4 IN3 IN2 IN1    
@@ -12,7 +12,7 @@ module Top(output [1:0]JA, input clk, input [1:0]JB, output [1:0]led);
 //            assign MotorIn = JA[3:0];
 //            assign MotorEn = JA[5:4];
 //            Motor motorTest(induct, proxim, MotorIn, MotorEn, red);
-             ProximitySensor prox(JA[0], JB[0], clk, led[0]);
+             tempProx prox(JA[0], JB[0], clk, led[7:0]);
             
             
             

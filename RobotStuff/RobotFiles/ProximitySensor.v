@@ -3,12 +3,13 @@ module ProximitySensor(output reg trigger, input echo, input clk, output reg isC
     //need to supply a short 10us pulse to trigger ranging                          is crash is ouput to motor module
  //timer used for trigger output (minimum 10 microseconds)
     reg [31:0]distance = 0;
+    
     always @(posedge clk) //every clock pulse
         begin
             case (echo)
             0:
                 begin
-                    trigger <= 1;
+                    
                     if(distance <= 294117 && distance > 0)
                         begin
                             isCrash <= 1;
@@ -19,6 +20,7 @@ module ProximitySensor(output reg trigger, input echo, input clk, output reg isC
                             isCrash <= 0;
                             distance <= 0;
                         end
+                        trigger = 1;
                     
                 end       
             1:
