@@ -40,9 +40,14 @@ module tempProx(output reg trigger, input echo, input clk, output reg [7:0]isCra
                                 begin
                                   isCrash <= 8'b11111111;
                                 end
+                             
                              trigger = 1;
                              distance = 0;
                         end  
+                      else
+                           begin
+                              isCrash <= 0;
+                           end
                 end       
             1:
                 begin
