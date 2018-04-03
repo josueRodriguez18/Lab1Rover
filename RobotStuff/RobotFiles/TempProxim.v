@@ -1,6 +1,6 @@
 `timescale 1us/1us
 module tempProx(output reg trigger, input echo, input clk, output reg [7:0]isCrash); //trigger begins ranging, echo gives ranging value, clk is used for timing)
-    integer distance;    
+    reg [31:0]distance = 0;    
     always @(posedge clk) //every clock pulse
         begin
             case (echo)
@@ -40,8 +40,8 @@ module tempProx(output reg trigger, input echo, input clk, output reg [7:0]isCra
                                 begin
                                   isCrash <= 8'b11111111;
                                 end
-                                trigger = 1;
-                                distance = 0;
+                             trigger = 1;
+                             distance = 0;
                         end  
                 end       
             1:

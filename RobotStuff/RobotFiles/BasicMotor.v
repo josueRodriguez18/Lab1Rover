@@ -10,11 +10,11 @@ reg proxim_last;
         begin
              case (proxim) //proxim case so it's checked instantly
               1'b0: //low
-                case(induct)
-                    3'b001: //all the different induct patterns
-                        begin
-                            motorIn <= 4'b1010;
-                            motorEn <= 2'b11;
+                case(induct) 
+                    3'b001: //left and center detecting
+                        begin //have to turn left
+                            motorIn <= 4'b1010; //left motor backward right motor forward
+                            motorEn <= 2'b11; //enable on
                             last = motorIn; //save last
                         end
                     3'b011:
