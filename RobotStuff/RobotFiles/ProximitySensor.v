@@ -22,9 +22,9 @@ module ProximitySensor(output reg trigger, input echo, input clk, output reg isC
             end
         else
             begin
-              if(counter_echo)
+              if(echo_cntr)
                 begin
-                    if(counter_echo < distance)
+                    if(echo_cntr < distance)
                         begin
                           isCrash = 1'b1;
                         end
@@ -39,7 +39,7 @@ module ProximitySensor(output reg trigger, input echo, input clk, output reg isC
                 begin
                     trigger <= 0;
                     counter <= 0;
-                    counter _echo <= 1'b0;
+                    echo_cntr <= 1'b0;
                 end
             else
                 begin
