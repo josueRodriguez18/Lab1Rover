@@ -3,6 +3,8 @@ reg [31:0] Freq; //kHz
 reg [31:0] gate = 1000000; //10 ms
 reg [31:0] count = 0;
 reg [31:0] tempFreq = 0;
+reg [31:0] AverageColorFreq = 0;
+reg [31:0] tolerance;
 
 
 always@(posedge clk)
@@ -29,7 +31,7 @@ always@(count==0)
 	  case(filter)
 		00: //RED
 			begin
-				if(Average Blue Frequency - 5% <= Freq && Freq <= Average Red Frequency + 5%)
+				if(AverageColorFreq - tolerance <= Freq && Freq <= AverageColorFreq + tolerance)
 					begin
 					color = 3'b001;        
 					end
@@ -37,7 +39,7 @@ always@(count==0)
 			end
 		01: //BLUE
 			begin
-				if(Average Blue Frequency - 5% <= Freq && Freq <= Average Blue Frequency + 5%)
+				if(AverageColorFreq - tolerance <= Freq && Freq <= AverageColorFreq + tolerance)
 					begin
 						color = 3'b010;  
 					end
@@ -45,7 +47,7 @@ always@(count==0)
 			end
 		11: //GREEN
 			begin
-				if (Average Green Frequency - 5% <= Freq && Freq <= Average Green Frequency + 5%)
+				if (AverageColorFreq - tolerance <= Freq && Freq <= AverageColorFreq + tolerance)
 					begin
 						color = 3'b100;
 					end
