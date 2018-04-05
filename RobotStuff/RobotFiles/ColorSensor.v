@@ -1,6 +1,6 @@
 module ColorSensor(output reg [1:0] scale, output reg [1:0]filter, output reg enf, output reg [2:0] color, input sensorFreq, input clk);
 reg [31:0] Freq; //kHz
-reg [31:0] gate = 1000000; //10 ms
+reg [31:0] gate = 1000000; //1 ms
 reg [31:0] count = 0;
 reg [31:0] tempFreq = 0;
 reg [31:0] avRedFreq; reg[31:0]avRedFeq; reg[31:0] avBlueFreq;
