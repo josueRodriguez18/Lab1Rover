@@ -1,16 +1,15 @@
-module ColorSensor(output reg [1:0] scale, output reg [1:0]filter, output reg enf, output reg [2:0] color, input sensorFreq, input clk)
-reg [31:0] Freq;
-reg [31:0] gate = 1000000;
+module ColorSensor(output reg [1:0] scale, output reg [1:0]filter, output reg enf, output reg [2:0] color, input sensorFreq, input clk);
+reg [31:0] Freq; //kHz
+reg [31:0] gate = 1000000; //10 ms
 reg [31:0] count = 0;
 reg [31:0] tempFreq = 0;
-parameter x;
-parameter y;
+
 
 always@(posedge clk)
 	begin
-		scale <= 2b'11;
+		scale <= 2'b11;
 		enf <= 1'b1;
-		if(count != gate)
+		if(count <= gate)
 			begin
 				count = count + 1;
 			end
@@ -25,12 +24,12 @@ always@(posedge clk)
 			end
 	end
 
-always@(negedge count)
+always@(count==0)
     begin
 	  case(filter)
 		00: //RED
 			begin
-				if(x <= Freq && Freq <= y)
+				if(Average Blue Frequency - 5% <= Freq && Freq <= Average Red Frequency + 5%)
 					begin
 					color = 3'b001;        
 					end
@@ -38,7 +37,7 @@ always@(negedge count)
 			end
 		01: //BLUE
 			begin
-				if(x <= Freq && Freq <= y)
+				if(Average Blue Frequency - 5% <= Freq && Freq <= Average Blue Frequency + 5%)
 					begin
 						color = 3'b010;  
 					end
@@ -46,7 +45,7 @@ always@(negedge count)
 			end
 		11: //GREEN
 			begin
-				if (x <= Freq && Freq <= y)
+				if (Average Green Frequency - 5% <= Freq && Freq <= Average Green Frequency + 5%)
 					begin
 						color = 3'b100;
 					end
