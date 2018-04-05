@@ -3,7 +3,7 @@ reg [31:0] Freq; //kHz
 reg [31:0] gate = 1000000; //10 ms
 reg [31:0] count = 0;
 reg [31:0] tempFreq = 0;
-reg [31:0] AverageColorFreq = 0;
+reg [31:0] avRedFreq; reg[31:0]avRedFeq; reg[31:0] avBlueFreq;
 reg [31:0] tolerance;
 
 
@@ -31,7 +31,7 @@ always@(count==0)
 	  case(filter)
 		00: //RED
 			begin
-				if(AverageColorFreq - tolerance <= Freq && Freq <= AverageColorFreq + tolerance)
+				if(avRedFreq - tolerance <= Freq && Freq <= avRedFreq + tolerance)
 					begin
 					color = 3'b001;        
 					end
@@ -39,7 +39,7 @@ always@(count==0)
 			end
 		01: //BLUE
 			begin
-				if(AverageColorFreq - tolerance <= Freq && Freq <= AverageColorFreq + tolerance)
+				if(avBlueFreq - tolerance <= Freq && Freq <= avBlueFreq + tolerance)
 					begin
 						color = 3'b010;  
 					end
@@ -47,7 +47,7 @@ always@(count==0)
 			end
 		11: //GREEN
 			begin
-				if (AverageColorFreq - tolerance <= Freq && Freq <= AverageColorFreq + tolerance)
+				if (avGreenFreq - tolerance <= Freq && Freq <= avGreenFreq + tolerance)
 					begin
 						color = 3'b100;
 					end
