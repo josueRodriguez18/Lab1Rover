@@ -51,7 +51,7 @@ always@(count==0)
 					begin
 						color = 3'b100;
 					end
-				filter = 2'b00;
+				filter = 2'b11;
             end
 		endcase
     end
