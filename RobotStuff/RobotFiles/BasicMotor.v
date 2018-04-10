@@ -1,8 +1,5 @@
 module Motor( input [2:0]induct, input proxim, output reg [3:0]motorIn, output reg [1:0] motorEn, input red);
-// induct active LOW
-// motorIn = direction of each motor
-// motorEn = motor on/off
-// induct 3 bit number 000 ====== left | middle | out
+// induct active LOW | motorIn = direction of each motor | motorEn = motor on/off | induct 3 bit number 000 ====== left | middle | out
 reg [3:0] last;
 reg [3:0] redLast = 4'b0101;
 reg proxim_last;
@@ -47,18 +44,20 @@ reg proxim_last;
                             motorEn <= 2'b11; 
                             last = motorIn;
                         end
-                    default: 
-                    begin
-                        motorIn <= last; //finish turns
-                        motorEn <= 2'b11;
-                    end
+                    3'b111:
+                        begin
+                          motorIn <= last;
+                          motorEn <= 2'b11;
+                          last = motorIn;
+                        end
                 endcase
-                default: 
-                    begin
-                         motorIn <= redLast; //proxim high so turn
-                         motorEn <= 2'b11;
-                         proxim_last =~ proxim_last; //toggle proxim_last
-                    end         
+            1'b1: 
+                begin
+                     motorIn <= 4'b1010; //proxim high so turn
+                     last <= 4'b1010;
+                     motorEn <= 2'b11;
+                     proxim_last = 1 'b1; //toggle proxim_last
+                end         
             endcase
         end
                 always@(posedge red) //only execute when red is driven onto
