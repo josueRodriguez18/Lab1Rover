@@ -57,7 +57,7 @@ reg proxim_last;
                         end
                     3'b000:
                         begin
-                            motorIn <= redLast; //junction execution
+                            motorIn <= 4'b0101; //junction execution
                             motorEn <= 2'b11; 
                             last = motorIn;
                         end
@@ -77,5 +77,8 @@ reg proxim_last;
                 end         
             endcase
         end    
-    
+    always@(red)
+        begin
+            proxim_last = proxim_last ~^1;
+        end
 endmodule
