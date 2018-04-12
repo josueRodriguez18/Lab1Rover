@@ -29,7 +29,7 @@ reg proxim_last;
                  if(proxim) 
                     begin
                         motorIn = 4'b1010;
-                        proxim_last = ~proxim_last; //toggle proxim_last to show we've encountered a cone
+                         //toggle proxim_last to show we've encountered a cone
                         motorEn <=2'b11;
                     end
                  if(induct == 3'b010 || induct == 3'b111) //either mid junction turn or mid 180 turn
@@ -41,7 +41,6 @@ reg proxim_last;
                     begin
                       motorEn <= 2'b11;
                       motorIn = last;
-                      
                     end
                 end
                 // always@(posedge red) //only execute when red is driven onto
