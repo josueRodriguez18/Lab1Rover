@@ -12,27 +12,27 @@ reg toggle = 1'b0;
 
 //circuit functionality
 always @(posedge clk)
-if (in[0]) 
-begin
-	out <= 2'b01;
-end
-else if (in[1])
-begin
-	if (count == delay && delay > 0)
-	begin
-		if (toggle)
-		begin
-			out <= 2'b10;
-			toggle <= ~toggle;
-		end
-		else
-		begin
-			out <= 2'b01;
-			toggle <= ~toggle;
-		end
-		delay <= delay - deltadelay;
-		count <= 26'b0;
-	end
+    if (in[0]) 
+        begin
+	        out <= 2'b01;
+        end
+    else if (in[1])
+        begin  
+	        if (count == delay && delay > 0)
+	            begin
+		            if (toggle)
+		                begin
+			                out <= 2'b10;
+			                toggle <= ~toggle;
+		                end
+		    else
+		        begin
+			        out <= 2'b01;
+			        toggle <= ~toggle;
+		        end
+		    delay <= delay - deltadelay;
+		    count <= 26'b0;
+	        end
 	else if (delay == 0)
 		out <= 2'b0;
 	else
