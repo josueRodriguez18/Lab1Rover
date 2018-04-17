@@ -9,7 +9,7 @@ reg enf = 0;
 always@(!Freq)
     begin
 			
-			FreqCounter f1(clk, sensorFreq, Freq);
+	    FreqCounter f1(clk, sensorFreq, Freq); //This line has syntax error, do not know why
 	  	
 			case(filter)
 				2'b00: //RED
