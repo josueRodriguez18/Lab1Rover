@@ -8,19 +8,23 @@ reg [31:0] tempFreq = 0;
 
 always@ (posedge clk)
         begin
-            if(count <= 100000)
+            if(count < 100000)
 			    begin
 				    count = count + 1;
 				    gate = 1;
 			    end
-	        else
+	        else if(count == 100000)
 			    begin
-				    count = 0;
+				    count = count + 1;
                     Freq = tempFreq;
                     gate = 0;
                     tempFreq = 0;
 			    end
-			    Freq = 0;
+            else
+                begin
+                    count = 0;
+                    Freq = 0;
+                end
         end
 
 
