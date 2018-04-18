@@ -1,13 +1,6 @@
 module ColorSensor(output reg [1:0] scale, output reg [1:0]filter, output reg [2:0] color, input sensorFreq, input clk);
-
-wire [31:0] Freq; //kHz
-reg [31:0] tempFreq = 0;
-reg [31:0] RedFreq; 
-reg [31:0] BlueFreq; 
-reg [31:0] GreenFreq;
-
+wire [31:0] Freq; reg [31:0] tempFreq = 0; reg [31:0] RedFreq; reg [31:0] BlueFreq; reg [31:0] GreenFreq;
 FreqCounter f1(clk, sensorFreq, Freq);
-
 always@(Freq)
     begin  	
 			case(filter)
