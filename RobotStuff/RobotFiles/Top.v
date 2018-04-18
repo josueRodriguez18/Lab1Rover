@@ -13,7 +13,6 @@ module Top(output [6:0]JA, input [3:0]JB, input clk);
             assign trigger = JA[6];
             assign echo = JB[3];
             assign induct[2:0] = JB[2:0];
-            
             assign MotorIn = JA[3:0];
             assign MotorEn = JA[5:4];
              Motor motorTest(induct, proxim, MotorIn, MotorEn, red);
