@@ -24,7 +24,6 @@ reg proxim_last;
                        begin    
                         motorIn = 4'b0110;
                         motorEn <= 2'b11;
-                        last = motorIn; //saves last state
                        end
                  if(proxim) 
                     begin
