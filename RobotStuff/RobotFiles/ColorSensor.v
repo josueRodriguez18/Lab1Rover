@@ -16,7 +16,7 @@ always@(posedge clk)
 						if(count == 100000)
 							begin
 								gate = 0;
-								count = count + 1
+								count = count + 1;
 								RedFreq = tempFreq;
 							end
 						else
