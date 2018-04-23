@@ -13,6 +13,7 @@ reg [3:0] last; reg [1:0]proxim_last; reg at_Proxim;
                                begin
                                  motorIn <= 4'b0110;
                                  motorEn <= 2'b11;
+                                 proxim_last <= 0;
                                end
                            else
                                begin
@@ -54,12 +55,12 @@ reg [3:0] last; reg [1:0]proxim_last; reg at_Proxim;
                         begin
                             motorIn <= 4'b0110;
                             motorEn <= 2'b11;
+                            at_Proxim <= 0;
                         end
                     3'b111:
                         begin
                           motorIn <= last;
                           motorEn <= 2'b11;
-                          at_Proxim <= 0;
                         end
                 endcase
             1'b1: 
