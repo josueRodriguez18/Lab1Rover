@@ -1,8 +1,7 @@
 module Motor( input [2:0]induct, input proxim, output reg [3:0]motorIn, output reg [1:0] motorEn, input red);
-// induct active LOW | motorIn = direction of each motor | motorEn = motor on/off | induct 3 bit number 000 ====== left | middle | out
-reg [3:0] last;
-reg [1:0]proxim_last;
-    always @(posedge clk) //any time induct changes
+reg [3:0] last; reg [1:0]proxim_last; reg at_Proxim;
+
+    always @(proxim || induct) //any time induct changes
         begin
              case (proxim) //proxim case
              // so it's checked instantly
