@@ -6,5 +6,5 @@ module Top(output [6:0]JA, input [3:0]JB, input clk);
             assign induct[2:0] = JB[2:0];
             assign MotorIn = JA[3:0];
             Motor motorTest(induct, proxim, MotorIn);
-            ProximitySensor prox(trigger, echo, clk, proxim);       
+            ProximitySensor prox(trigger, echo, clk, proxim);    
 endmodule
