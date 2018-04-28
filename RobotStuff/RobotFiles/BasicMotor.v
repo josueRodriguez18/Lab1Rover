@@ -58,7 +58,7 @@ reg [3:0] last; reg [1:0]proxim_last; reg at_Proxim; reg [2:0]induct_last;
                         end
                     3'b000:
                         begin
-                            motorIn <= 4'b0101;
+                            motorIn <= 4'b0100;
                             last <= 4'b0101;
                         end
                     3'b101:
