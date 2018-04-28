@@ -16,7 +16,7 @@ reg [3:0] last; reg [1:0]proxim_last; reg at_Proxim; reg [2:0]induct_last;
                                 else
                                     begin
                                         motorIn <= 4'b1010; //left motor backward right motor forward
-                                        last = 4'b1010; //save last
+                                        last <= 4'b1010; //save last
                                     end
                             end
                     3'b011:
@@ -41,7 +41,7 @@ reg [3:0] last; reg [1:0]proxim_last; reg at_Proxim; reg [2:0]induct_last;
                             else
                                 begin
                                     motorIn <= 4'b0101;
-                                    last = motorIn;
+                                    last <= motorIn;
                                 end
                         end
                     3'b100:
@@ -53,7 +53,7 @@ reg [3:0] last; reg [1:0]proxim_last; reg at_Proxim; reg [2:0]induct_last;
                              else
                                begin
                                     motorIn <= 4'b0101;
-                                    last = motorIn;
+                                    last <= motorIn;
                                end
                         end
                     3'b000:
