@@ -1,13 +1,14 @@
-`timescale 1ns/1ps
-module ColorSensor(output reg color, output reg [2:0] scale, input sensorFreq, input sensorFreq2, input clk);
+
+module ColorSensor(output reg color, output reg [1:0] scale, output reg [1:0] scale2, input sensorFreq, input sensorFreq2, input clk);
 reg [31:0] tempFreq = 0;
 reg [31:0] tempFreq2 = 0;
 reg [31:0] GreenFreq; reg [31:0] clearFreq; 
-reg [31:0] tempGreenFreq; 
+reg [31:0] tempGreenFreq; reg[31:0] percent;
 reg [31:0] count = 0;
 reg [31:0] count2 = 0;
 reg[31:0] count3 = 0;
-reg [2:0] scale = 2'b11;
+reg [1:0] scale = 2'b11;
+reg [1:0] scale2 = 2'b11;
 
 reg last = 0;
 reg last2 = 0;
@@ -32,7 +33,7 @@ always@(posedge clk)
 				count <= 0;
 				
 			end
-      	end
+      	
 		//clear
 		
 		if(count2 <= 100000)
@@ -53,9 +54,8 @@ always@(posedge clk)
 					
 				end
 			end
-		endcase
-  	end
-
+		
+  	
  always@(GreenFreq && clearFreq)
  	begin
  		tempGreenFreq <= GreenFreq * 100;
@@ -66,14 +66,15 @@ always@(posedge clk)
  			end
  		else
  			begin
- 			  GreenFreq <= count3;
+ 			  percent <= count3;
  			  count3 <= 0;
+ 			  if(57 < percent < 80)
+                         begin
+                             color = 1;
+                         end
  			end
 		
-		else if(57 < GreenFreq < 80)
-		  begin
-		      color = 1;
-		  end
+		
 		
  	end
 
