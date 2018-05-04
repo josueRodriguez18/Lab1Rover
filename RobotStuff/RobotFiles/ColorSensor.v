@@ -1,4 +1,3 @@
-
 module ColorSensor(output reg color, output reg [1:0] scale, output reg [1:0] scale2, input sensorFreq, input sensorFreq2, input clk);
 reg [31:0] tempFreq = 0;
 reg [31:0] tempFreq2 = 0;
@@ -80,4 +79,3 @@ always@(posedge clk)
 
 
 endmodule
-
