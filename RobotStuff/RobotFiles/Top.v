@@ -7,7 +7,7 @@ module Top(output [6:0]JA, input [3:0]JB, input clk);
 //            assign MotorIn = JA[3:0];
 //            Motor motorTest(induct, proxim, MotorIn);
 //            ProximitySensor prox(trigger, echo, clk, proxim); 
-              reg color; wire [1:0]sensorFreq;
+              wire color; wire [1:0]sensorFreq;
               assign sensorFreq = JB[1:0];
               ColorSensor c1(color, clk, sensorFreq); 
 endmodule
