@@ -32,6 +32,10 @@ always@(posedge clk)
 									begin
 										color <= 1;
 									end
+								else
+								    begin
+								        color <= 0;
+								    end
 								count <= 0;
 							end
 
