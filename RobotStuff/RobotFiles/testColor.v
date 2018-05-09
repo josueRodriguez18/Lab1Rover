@@ -1,95 +1,48 @@
-module ColorSensor(output reg [1:0]scale, output reg [1:0] filter, output reg [2:0]color, input [2:0] switches, input clk, input sensorFreq)
-reg [31:0] tempFreq;
-reg [31:0] RedFreq; reg [31:0] BlueFreq; reg [31:0] GreenFreq; 
+module ColorSensor(output reg [2:0]color, input clk, input reg [1:0]sensorFreq)
+reg [31:0] greenTemp; reg [31:0] clearTemp; reg[31:0] temp;
+reg [31:0] GreenFreq; reg [31:0] ClearFreq; 
 reg [31:0] count; 
-reg gate;
+reg gate; reg [31:0] percent;
 reg filter = 2'b00;
 assign filter = switches;
 always@(posedge clk)
-    begin
-        scale = 2'b11;
-			case(filter)
-				2'b00: //RED
-					begin				
-						if(count < 100000)
-							begin
-								count <= count + 1;
-								gate <= 1;
-							end
-						else if(count == 100000)
-							begin
-								RedFreq <= tempFreq-14;
-								count <= count + 1;
-							end
-						else
-							begin
-								count <= 0;
-								gate <= 0;
-								//filter <= 2'b01;
-							end	
+    begin				
+				if(count < 100000)
+					begin
+						count <= count + 1;
+						gate <= 1;
 					end
-				2'b01: //BLUE
+				else if(count == 100000)
 					begin
-						if(count < 100000)
-							begin
-								count <= count + 1;
-								gate <= 1;
-							end
-						else if(count == 100000)
-							begin
-								BlueFreq <= tempFreq-11;
-								count = count + 1;	
-							end
-						else
-							begin
-								count <= 0;
-								gate <= 0;
-								//filter <= 2'b11;
-							end
+						GreenFreq <= greenTemp;
+						ClearFreq <= clearTemp;
+						temp <= GreenFreq * 100;
+						count <= count + 1;
 					end
-				2'b11: //GREEN
+				else
 					begin
-						if(count < 100000)
+						gate <= 0;
+						if(ClearFreq <= greenTemp)
 							begin
-								count <= count + 1;
-								gate <= 1;
-							end
-						else if(count == 100000)
-							begin
-								GreenFreq <= tempFreq-8;
-								count <= count + 1;
+								temp <= temp - ClearFreq
+								count <= count +1;
 							end
 						else
 							begin
+								percent <= count;
 								count <= 0;
-								gate <= 0;
-								//filter <= 2'b10;
+								if(57 <= percent && percent <= 80)
+									begin
+										color <= 1;
+									end
+								count <= 0;
 							end
-      					end
-				2'b10: //clear
-					begin
-			  		if(RedFreq > BlueFreq && RedFreq > GreenFreq)//&& RedFreq < 24
-						begin
-				  			color <= 3'b001;
-						end
-			  		else if (BlueFreq > RedFreq && BlueFreq > GreenFreq )//&& BlueFreq < 21
-			  			begin
-							color <= 3'b010;
-						end
-			  		else if (GreenFreq > RedFreq && GreenFreq > BlueFreq)//&& GreenFreq < 19) 
-			  			begin
-							color <= 3'b100;
-						end
-					else if (GreenFreq == RedFreq && BlueFreq == RedFreq && RedFreq== GreenFreq)
-					   begin
-					       color <= 3'b111;
-					   end 
-					//filter <= 2'b00;
-				end
-			endcase
+
+					end
+				
   	end
 
-always@(posedge (sensorFreq))
+always@(posedge (sensorFreq[1]))
 	begin
 		if(gate == 1)
 			begin
@@ -100,4 +53,17 @@ always@(posedge (sensorFreq))
 				tempFreq <= 0;
 			end
 	end
+always@(posedge(sensorFreq[0]))
+	begin
+		if(gate == 1)
+			begin
+				tempFreq2 <= tempFreq2 +1;
+			end
+		else
+			begin
+				tempFreq <= 0;
+			end
+	end
+
+
 endmodule
